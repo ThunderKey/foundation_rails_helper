@@ -19,7 +19,7 @@ module FoundationRailsHelper
     def label(attribute, text = nil, options = {})
       if has_error?(attribute)
         options[:class] ||= ''
-        options[:class] += ' error'
+        options[:class] += ' is-invalid-label'
       end
 
       super(attribute, (text || '').html_safe, options)
@@ -114,14 +114,11 @@ module FoundationRailsHelper
     end
 
     def error_for(attribute, options = {})
-      class_name = 'error'
-      class_name += " #{options[:class]}" if options[:class]
-
       return unless has_error?(attribute)
 
       error_messages = object.errors[attribute].join(', ')
       error_messages = error_messages.html_safe if options[:html_safe_errors]
-      content_tag(:small, error_messages, :class => class_name)
+      content_tag(:span, error_messages, :class => 'form-error is-visible')
     end
 
     def custom_label(attribute, text, options, &block)
@@ -205,11 +202,10 @@ module FoundationRailsHelper
     end
 
     def error_and_hint(attribute, options = {})
-      html = ''
+      html = error_for(attribute, options) || ''
       if options[:hint]
-        html += content_tag(:span, options[:hint], :class => :hint)
+        html += content_tag(:p, options[:hint], :class => 'help-text')
       end
-      html += error_for(attribute, options) || ''
       html.html_safe
     end
 
@@ -223,7 +219,7 @@ module FoundationRailsHelper
 
       if has_error?(attribute)
         class_options[:class] = class_options[:class].to_s
-        class_options[:class] += ' error'
+        class_options[:class] += ' is-invalid-input'
       end
 
       options.delete(:label)

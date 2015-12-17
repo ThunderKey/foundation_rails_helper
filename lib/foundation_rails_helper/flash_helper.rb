@@ -2,9 +2,9 @@ require 'action_view/helpers'
 
 module FoundationRailsHelper
   module FlashHelper
-    # <div class="alert-box [success alert secondary]">
+    # <div class="callout [success alert secondary]" data-closable>
     #   This is an alert box.
-    #   <a href="" class="close">&times;</a>
+    #   <button class="close-button" data-close><span aria-hidden=true>&times;</span></button>
     # </div>
     DEFAULT_KEY_MATCHING = {
       :alert     => :alert,
@@ -31,14 +31,18 @@ module FoundationRailsHelper
   private
 
     def alert_box(value, alert_class)
-      content_tag :div, :data => { :alert => "" }, :class => "alert-box #{alert_class}" do
+      content_tag :div, :class => "callout #{alert_class}", 'data-closable': '' do
         concat value
-        concat close_link
+        if FoundationRailsHelper.configuration.show_close_button
+          concat close_link
+        end
       end
     end
 
     def close_link
-      link_to("&times;".html_safe, "#", :class => :close)
+      content_tag :button, class: :'close-button', type: :button, 'data-close': '' do
+        content_tag :span, '&times;'.html_safe, :'aria-hidden' => true
+      end
     end
 
   end

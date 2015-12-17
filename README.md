@@ -56,6 +56,8 @@ A classic devise sign up view will look like this:
 
 ![Flash-message](https://cloud.githubusercontent.com/assets/393167/5845238/563dc094-a1b2-11e4-8548-2dd2950a60be.png "Flash-message")
 
+The close button requires Motion UI. If this is not present or you don't want the button you can set <code>config.show_close_button = true</code> in the file *config/initializers/foundation_rails_helper.rb*.
+
 ## Installation
 
 Add this line to your application's Gemfile:
