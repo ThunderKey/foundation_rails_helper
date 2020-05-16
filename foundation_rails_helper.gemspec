@@ -17,10 +17,9 @@ Gem::Specification.new do |gem|
   gem.summary = 'Rails helpers for zurb foundation CSS framework'
   gem.homepage = 'http://github.com/sgruhier/foundation_rails_helper'
 
-  gem.executables =
-    `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
-  gem.files = `git ls-files`.split("\n")
-  gem.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
+  gem.executables = []
+  gem.files = Dir['Rakefile', 'lib/**/*']
+  gem.test_files = Dir['spec/**/*']
   gem.name = 'foundation_rails_helper'
   gem.require_paths = %w(lib)
   gem.version = FoundationRailsHelper::VERSION
